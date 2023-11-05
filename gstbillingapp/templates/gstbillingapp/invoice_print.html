@@ -1,0 +1,464 @@
+{% extends "gstbillingapp/print_base.html" %}
+
+
+{% block content %}
+<div style="max-width: 1200px; margin: auto;">
+    <center>
+        <h1><strong>Tax Invoice</strong></h1>
+    </center>
+    <hr style="border-top: 1px solid black;">
+
+    <table>
+        <tr>
+            <td>
+                <b>Name and Address of Supplier</b>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{user_profile.business_title}}
+            </td>
+            <td>
+                <b>GST Invoice No : {{invoice.invoice_number}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{user_profile.business_address}}
+            </td>
+            <td>
+                <b>GST Invoice Date : {{invoice.invoice_date}}</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <!-- Jharkhand ,India -->
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                GSTIN :{{user_profile.business_gst}}
+            </td>
+            <td>
+                <strong>Place of Supply</strong>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+            </td>
+            <td>
+                WEST BOKARO,Jharkhand
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <!-- <tr><td></td></tr> -->
+        <!-- <tr><td></td></tr> -->
+        <!-- <tr><td></td></tr> -->
+        <tr>
+            <td>
+                <b>Name and Address of Recipient</b>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ invoice_data.customer_name }}
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ invoice_data.customer_address }}
+            </td>
+            <td>
+                <b>Receipt Voucher No</b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                GSTIN No : {{ invoice_data.customer_gst }}
+            </td>
+            <td>
+                (For advance payment only)
+            </td>
+        </tr>
+        <tr>
+            <td> <br>
+            </td>
+        </tr>
+        <!-- <tr><td></td></tr> -->
+        <tr>
+            <td>
+                <b>ARC No : </b>{{ invoice_data.arc_number }}
+            </td>
+            <td>
+                <b>Item No : </b> {{ invoice_data.item_number }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Challan No : </b>{{ invoice_data.challan_number }}
+            </td>
+            <td>
+                <b>Order Number : </b> {{invoice_data.order_number}}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Item Description : </b>{{ invoice_data.item_description }}
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Service From : </b>{{ invoice_data.service_from }}
+            </td>
+            <td>
+                <b>Service To : </b>{{ invoice_data.service_to }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Department : </b>{{ invoice_data.department }}
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Conf No : </b>{{ invoice_data.conf_number }}
+            </td>
+            <td>
+                <b>SES No : </b>{{ invoice_data.ses_number }}
+            </td>
+        </tr>
+    </table>
+    <br>
+    <br>
+    
+    <div class="table-responsive-sm">
+        <table class="table table-invoice" border="2px">
+            <thead>
+                <tr style="background-color: gray; color: black;">
+                    <!-- <th class="text-center">#</th> -->
+                    <th class="text-left">Item No</th>
+                    <th class="text-center">SAC</th>
+                    <th class="text-center">Service No</th>
+                    <th class="text-center">Service Description</th>
+                    <th class="text-right">Quantity</th>
+                    <th class="text-center">UOM</th>
+                    <th class="text-right">Rate ({{ currency }})</th>
+                    <!-- <th class="text-right">Taxable Amount ({{ currency }})</th>
+                    <th class="text-right">GST (%)</th>
+                    {% if invoice_data.igstcheck %}
+                        <th class="text-right">IGST ({{ currency }})</th>
+                    {% else %}
+                        <th class="text-right">CGST ({{ currency }})</th>
+                        <th class="text-right">SGST ({{ currency }})</th>
+                    {% endif %} -->
+                    <th class="text-right">Total Amount ({{ currency }})</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in invoice_data.items %}
+                <tr>
+                    <!-- <td class="text-center">{{ forloop.counter }}</td> -->
+                    <td class="text-left strong">{{ item.invoice_item }}</td>
+                    <td class="text-center">{{ item.invoice_sac }}</td>
+                    <td class="text-center">{{ item.invoice_service_number }}</td>
+                    <td class="text-center">{{ item.invoice_description }}</td>
+                    <td class="text-right">{{ item.invoice_qty }}</td>
+                    <td class="text-center">{{ item.invoice_unit }}</td>
+                    <td class="text-right">{{ item.invoice_rate_without_gst|floatformat:2 }}</td>
+                    <!-- <td class="text-right">{{ item.invoice_amt_without_gst|floatformat:2 }}</td>
+                    <td class="text-right">{{ item.invoice_gst_percentage }}</td>
+                    {% if invoice_data.igstcheck %}
+                        <td class="text-right">{{ item.invoice_amt_igst|floatformat:2 }}</td>
+                    {% else %}
+                        <td class="text-right">{{ item.invoice_amt_cgst|floatformat:2 }}</td>
+                        <td class="text-right">{{ item.invoice_amt_sgst|floatformat:2 }}</td>
+                    {% endif %} -->
+                    <td class="text-right">{{ item.invoice_amt_with_gst|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+
+                <tr id="table-invoice-total-row">
+                    {% if invoice_data.igstcheck %}
+                        <td class="text-right" colspan="7"><b>Grand Total: </b></td>
+                        <!-- <td class="text-right">{{ currency }} {{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}</td> -->
+                        <!-- <td class="text-right"></td> -->
+                        <!-- <td class="text-right">{{ currency }} {{invoice_data.invoice_total_amt_igst|floatformat:2 }}</td> -->
+                    {% else %}
+                        <td class="text-right" colspan="7"><b>Grand Total: </b></td>
+                        <!-- <td class="text-right">{{ currency }} {{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}</td> -->
+                        <!-- <td class="text-right"></td> -->
+                        <!-- <td class="text-right">{{ currency }} {{invoice_data.invoice_total_amt_cgst|floatformat:2 }}</td>
+                        <td class="text-right">{{ currency }} {{invoice_data.invoice_total_amt_sgst|floatformat:2 }}</td> -->
+                    {% endif %}
+                    <td class="text-right"><strong>{{ currency }} {{ invoice_data.invoice_total_amt_with_gst|floatformat:2 }}</strong></td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6 col-6">
+                <div>
+                    &nbsp;
+                </div>
+                <div>
+                    <strong>Whether Tax payable on Reverse Charge </strong>
+                </div>
+                <div>
+                    No
+                </div>
+                <div>
+                    &nbsp;
+                </div>
+                <div>
+                    &nbsp;
+                </div>
+                <div>
+                    &nbsp;
+                </div>
+                <div>
+                    <b>Total Invoice Value (in words)</b>
+                </div>
+                <div style="color: gray;">
+                   <b>{{ total_in_words }} </b> 
+                </div>
+                <div>
+                    &nbsp;
+                </div>
+                <div>
+                    <b>Supplier Signature</b>
+                </div>
+                <div>
+                    &nbsp;
+                </div>
+                <div>
+                    <b>Date</b>
+                </div>
+
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-6 col-lg-6 col-6">
+                
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Surcharge/ Discount</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>0</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Taxable Value</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>CGST</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 9%</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>SGST/UTGST</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 9%</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_sgst|floatformat:2 }}</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>IGST</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 0%</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_igst|floatformat:2 }}</b></div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Total Amount payable</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>&nbsp;</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{invoice_data.invoice_total_amt_with_gst|floatformat:2 }}</b></div>
+                </div>
+                <div>
+                    &nbsp;
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Tax Subject to Reverse Charge</b></div>
+                    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 9%</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}</b></div> -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>CGST</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; %</b></div>
+                    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}</b></div> -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>SGST/UTGST</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; %</b></div>
+                    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_sgst|floatformat:2 }}</b></div> -->
+                </div>
+                <div class="row">
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>IGST</b></div>
+                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; %</b></div>
+                    <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_igst|floatformat:2 }}</b></div> -->
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+        <table class="table table-invoice" border="2px">
+            <thead>
+                <tr style="color: black;">
+                    <!-- <th class="text-center">#</th> -->
+                    <th class="text-left" colspan="3"><center>For Recipient Use Only</center></th>
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- <td class="text-center">{{ forloop.counter }}</td> -->
+                    <td class="text-left ">Received By (Name/ P. No.)</td>
+                    <td class="text-center">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+                    <td class="text-left">Signature and Date</td>
+                </tr>
+            </tbody>
+        </table>
+
+            <div class="row">
+                <div class="col-sm-4 col-md-4 col-lg-4 col-4">
+                    <div>
+                        <b>Bill recieve no</b>
+                    </div>
+                    <div>
+                        <b>TSL system reference no</b>
+                    </div>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4 col-4">
+                    <div>:</div>
+                    <div>:<b>{{ invoice_data.tsl_number }}</b></div>
+                </div>
+                <div class="col-sm-4 col-md-4 col-lg-4 col-4">
+                    <div>
+                        <b>Signature For TSL </b>
+                    </div>
+                    <div>
+                        <b>Date</b>
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    
+    <!-- <table border="2px">
+        <tr style="padding: 5px;">
+            <th>Item No</th>
+            <th>SAC</th>
+            <th>Service No</th>
+            <th>Service Description</th>
+            <th>Quantity</th>
+            <th>UOM</th>
+            <th>Rate</th>
+            <th>Total Amount</th>
+        </tr>
+        {% for item in invoice_data.items %}
+        <tr style="padding: 2px;">
+            <td>{{ item.invoice_item }}</td>
+            <td>{{ item.invoice_sac }}</td>
+            <td>{{ item.invoice_service_number }}</td>
+            <td>{{ item.invoice_description }}</center>
+            </td>
+            <td>{{ item.invoice_qty }}</td>
+            <td>{{ item.invoice_unit }}</td>
+            <td>{{ item.invoice_rate_without_gst|floatformat:2 }}</td>
+            <td>{{ item.invoice_amt_with_gst|floatformat:2 }}</td>
+        </tr>
+        {% endfor %}
+    </table> -->
+    <!-- <br> -->
+    <!-- <br> -->
+    <!-- <table class="card-body">
+        <tr>
+            <td>
+            </td>
+            <td>
+                Surcharge/ Discount INR 0
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Whether Tax payable on Reverse Charge </b>
+            </td>
+            <td>
+                <b>Taxable Value INR </b> {{ currency }} {{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                No
+            </td>
+            <td>
+                <b>CGST INR </b>{{ currency }} {{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+
+            </td>
+            <td>
+                <b>SGST/UTGST INR </b> {{ currency }} {{ invoice_data.invoice_total_amt_sgst|floatformat:2 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                <b>IGST INR </b>{{ currency }} {{ invoice_data.invoice_total_amt_igst|floatformat:2 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Total Invoice Value (in words)</b>
+            </td>
+            <td>
+                <b>Total Amount payable </b>{{ currency }} {{invoice_data.invoice_total_amt_with_gst|floatformat:2 }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                {{ total_in_words }} only &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+        </tr>
+
+
+
+    </table> -->
+</div>
+
+<button onclick="window.print();" class="btn btn-primary d-print-none">Print Invoice</button>
+
+
+
+{% endblock %}

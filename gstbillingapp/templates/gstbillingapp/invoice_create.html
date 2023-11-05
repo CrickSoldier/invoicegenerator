@@ -1,0 +1,250 @@
+{% extends "gstbillingapp/base.html" %}
+
+
+{% load static %}
+<!doctype html>
+
+{% block content %}
+
+<h2>Create Invoice</h2>
+
+<form method="POST" id="invoice-form" hidden="true">
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th class="table-active" scope="col" colspan="4">Invoice Details</th>
+			</tr>
+		</thead>
+
+		<tbody class="two-col-form">
+			<tr>
+				<th scope="row">Invoice Number</th>
+				<td class="form-input-td"><input name="invoice-number" type="number" class="form-control" placeholder="Invoice Number" value="{{default_invoice_number}}"></td>
+				<th scope="row">Date</th>
+				<td class="form-input-td"><input name="invoice-date" type="date" class="form-control", value="{{default_invoice_date}}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th class="table-active" scope="col" colspan="4">Customer Details</th>
+			</tr>
+		</thead>
+
+		<tbody class="two-col-form">
+			<tr>
+				<th scope="row">Customer Name</th>
+				<td class="form-input-td customer_search_area"><input autocomplete="off" name="customer-name" type="text" class="form-control customer_search_input" id="customer-name-input" placeholder="Customer Name" required>
+				</td>
+				<th scope="row">Customer Address</th>
+				<td class="form-input-td"><input autocomplete="off" name="customer-address" type="text" class="form-control" id="customer-address-input" placeholder="Customer Address" required></td>
+			</tr>
+			<tr>
+				<th scope="row">Customer Mobile Number</th>
+				<td class="form-input-td"><input autocomplete="off" name="customer-phone" type="tel" class="form-control" id="customer-phone-input" placeholder="Customer Mobile Number"></td>
+				<th scope="row">Customer GST</th>
+				<td class="form-input-td"><input autocomplete="off" name="customer-gst" type="text" class="form-control" id="customer-gst-input" placeholder="Customer GST" maxlength="15" pattern="([A-Za-z0-9]{15})|(^$)"></td>
+			</tr>
+
+			<tr>
+				<th scope="row">Item No</th>
+				<td class="form-input-td"><input autocomplete="off" name="item-number" type="text" class="form-control" id="item-number-input" placeholder="Item No"></td>
+				<th scope="row">Order Number</th>
+				<td class="form-input-td"><input autocomplete="off" name="order-number" type="text" class="form-control" id="order-number-input" placeholder="Order Number" required></td>
+			</tr>
+
+			<tr>
+				<th scope="row">Challan No</th>
+				<td class="form-input-td"><input autocomplete="off" name="challan-number" type="text" class="form-control" id="challan-number-input" placeholder="Challan No"></td>
+				<th scope="row">Item Description</th>
+				<td class="form-input-td">
+					<select class="form-select d-md-inline" id="item-description-input" name="item-description">
+						<option value="" ></option>
+						{% for i in item_description %}
+						<option value="{{i.item_description}}">{{i.item_description}}</option>
+						{% endfor %}                                    
+					</select>
+					<!-- <input autocomplete="off" name="item-description" type="text" class="form-control" id="item-description-input" placeholder="Item Description" required> -->
+				</td>
+			</tr>
+
+			<tr>
+				<th scope="row">Service From</th>
+				<td class="form-input-td"><input autocomplete="off" name="service-from" type="date" class="form-control" id="service-from-input" placeholder="Service From"></td>
+				<th scope="row">Service To</th>
+				<td class="form-input-td"><input autocomplete="off" name="service-to" type="date" class="form-control" id="service-to-input" placeholder="Service To" required></td>
+			</tr>
+
+			<tr>
+				<th scope="row">Conf No</th>
+				<td class="form-input-td"><input autocomplete="off" name="conf-number" type="text" class="form-control" id="conf-number-input" placeholder="Conf No"></td>
+				<th scope="row">SES No</th>
+				<td class="form-input-td"><input autocomplete="off" name="ses-number" type="text" class="form-control" id="ses-number-input" placeholder="SES No" required></td>
+			</tr>
+
+			<tr>
+				<th scope="row">Department</th>
+				<td class="form-input-td">
+					<!-- <input autocomplete="off" name="department" type="text" class="form-control" id="department-input" placeholder="Department"> -->
+					<select class="form-select d-md-inline" id="department-input" name="department">
+						<option value="" ></option>
+						{% for i in department %}
+						<option value="{{i.department_name}}">{{i.department_name}}</option>
+						{% endfor %}                                    
+					</select>
+				</td>
+				<th scope="row">TSL system reference no :</th>
+				<td class="form-input-td"><input autocomplete="off" name="tsl-number" type="text" class="form-control" id="tsl-number-input" placeholder="TSL System Reference no :"></td>
+				
+			</tr>
+
+		</tbody>
+	</table>
+
+	<table class="table table-bordered">
+		<tbody class="two-col-form">
+			<tr>
+				<th scope="row">ARC No</th>
+				<td class="form-input-td">
+					<!-- <input autocomplete="off" name="arc-number" type="text" class="form-control" placeholder="ARC No"> -->
+					<select class="form-select d-md-inline" id="arc-number-input" name="arc-number">
+						<option value="" ></option>
+						{% for i in arc_number %}
+						<option value="{{i.arc_number}}">{{i.arc_number}}</option>
+						{% endfor %}                                    
+					</select>
+				</td>
+				<th scope="row"></th>
+				<td class="form-input-td">
+					<div class="form-check">
+						<input class="form-check-input" name="igstcheck" type="checkbox" id="igstcheck">
+						<label class="form-check-label" for="igstcheck">
+							IGST
+						</label>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<table class="table table-bordered" id="invoice-form-items-table">
+		<thead>
+			<th class="table-active" scope="col" colspan="13">Items</th>
+
+			<tr>
+				<th scope="col">Sl No.</th>
+				<th scope="col">Item No</th>
+				<th scope="col">SAC</th>
+				<th scope="col">Service Number</th>
+				<th scope="col">Service Description</th>
+				<th scope="col">UOM</th>
+				<th scope="col">Qty</th>
+				<th scope="col">Rate without GST</th>
+				<th scope="col">GST %</th>
+				<th scope="col">Rate without GST</th>
+
+
+				<th scope="col">Amt without GST</th>
+				<th scope="col">SGST</th>
+				<th scope="col">CGST</th>
+				<th scope="col">IGST</th>
+				<th scope="col">Amt with GST</th>
+
+			</tr>
+		</thead>
+		<tbody id="invoice-form-items-table-body">
+			<tr>
+				<!-- product_search_area product_search_input -->
+				<td class="invoice-item-slno">1</td>
+				<td class="form-input-td">
+					<!-- <input name="invoice-item" type="text" class="form-control" placeholder="Item No"> -->
+					<select class="form-select d-md-inline" id="invoice-item-input" name="invoice-item">
+						<option value="" ></option>
+						{% for i in item_number %}
+						<option value="{{i.item_number}}">{{i.item_number}}</option>
+						{% endfor %}                                    
+					</select>
+				</td>
+				<td class="form-input-td">
+					<!-- <input name="invoice-sac" type="number" class="form-control" placeholder="SAC"> -->
+					<select class="form-select d-md-inline" id="invoice-sac-input" name="invoice-sac">
+						<option value="" ></option>
+						{% for i in sac_number %}
+						<option value="{{i.sac_number}}">{{i.sac_number}}</option>
+						{% endfor %}                                    
+					</select>
+				</td>
+				<td class="form-input-td">
+					<!-- <input name="invoice-service-number" type="number" class="form-control" placeholder="Service Number"> -->
+					<select class="form-select d-md-inline" id="invoice-service-number-input" name="invoice-service-number">
+						<option value="" ></option>
+						{% for i in service_number %}
+						<option value="{{i.service_number}}">{{i.service_number}}</option>
+						{% endfor %}                                    
+					</select>
+				</td>
+				<td class="form-input-td">
+					<input name="invoice-description" type="text" class="form-control " placeholder="Description">
+					<!-- <select class="form-select d-md-inline" id="invoice-description-input" name="invoice-description">
+						<option value="" ></option>
+						{% for i in service_description %}
+						<option value="{{i.service_description}}">{{i.service_description}}</option>
+						{% endfor %}                                    
+					</select> -->
+				</td>
+				<td class="form-input-td">
+					<!-- <input name="invoice-unit" type="text" class="form-control" placeholder="Unit"> -->
+					<select class="form-select d-md-inline" id="invoice-unit-input" name="invoice-unit">
+						<option value="" ></option>
+						{% for i in uom %}
+						<option value="{{i.uom}}">{{i.uom}}</option>
+						{% endfor %}                                    
+					</select>
+				</td>
+				<td class="form-input-td"><input name="invoice-qty" type="number" step="any" class="form-control" placeholder="Qty"></td>
+				<td class="form-input-td"><input name="invoice-rate-with-gst" type="number" step="any" class="form-control" placeholder="Rate without GST"></td>
+				<td class="form-input-td"><input name="invoice-gst-percentage" type="number" step="any" class="form-control" placeholder="GST %"></td>
+
+
+				<td class="form-input-td"><input name="invoice-rate-without-gst" type="number" step="any" class="form-control" placeholder="Rate without GST" readonly></td>
+				<td class="form-input-td"><input name="invoice-amt-without-gst" type="number" step="any" class="form-control" readonly></td>
+				<td class="form-input-td"><input name="invoice-amt-sgst" type="number" step="any" class="form-control" readonly></td>
+				<td class="form-input-td"><input name="invoice-amt-cgst" type="number" step="any" class="form-control" readonly></td>
+				<td class="form-input-td"><input name="invoice-amt-igst" type="number" step="any" class="form-control" readonly></td>
+				<td class="form-input-td"><input name="invoice-amt-with-gst" type="number" step="any" class="form-control" readonly></td>
+			</tr>
+		</tbody>
+
+		<tr>
+			<td colspan="10" class="text-right"><strong>TOTAL:</strong></td>
+			<td class="form-input-td"><input name="invoice-total-amt-without-gst" type="number" step="any" class="form-control" readonly></td>
+			<td class="form-input-td"><input name="invoice-total-amt-sgst" type="number" step="any" class="form-control" readonly></td>
+			<td class="form-input-td"><input name="invoice-total-amt-cgst" type="number" step="any" class="form-control" readonly></td>
+			<td class="form-input-td"><input name="invoice-total-amt-igst" type="number" step="any" class="form-control" readonly></td>
+			<td class="form-input-td"><input name="invoice-total-amt-with-gst" type="number" step="any" class="form-control" readonly></td>
+		</tr>
+
+	</table>
+	{% csrf_token %}
+	<button class="btn btn-primary" id="invoice-form-addrow">+</button>
+	<button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+
+</div>
+<div id="customer_search_bar"></div>
+<div id="product_search_bar"></div>
+
+
+{% endblock %}
+
+
+
+{% block includejs %}
+<script src="{% static "gstbillingapp/js/fuse-3.4.6.min.js" %}"></script>
+<script src="{% static "gstbillingapp/js/main.js" %}"></script>
+{% endblock %}
