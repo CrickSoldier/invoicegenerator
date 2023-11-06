@@ -65,7 +65,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 # SOCIAL AUTH
-                'social_django.context_processors.backends',
+                '.context_processors.backends',
                 'social_django.context_processors.login_redirect',
             ],
         },
