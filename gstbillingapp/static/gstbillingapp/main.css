@@ -6,6 +6,9 @@ input.form-control {
 
 /*Invoice Page *******************************************/
 
+@media print {
+body {-webkit-print-color-adjust: exact;}
+}
 #invoice-form input{
 	font-size: 0.9em;
 	color: black;
@@ -75,7 +78,7 @@ input.form-control[type=number] {
    
 }
 .table-invoice td, .table-invoice th {
-	border: solid #dee2e6 1px;
+	border: solid black 2px;
 }
 
 .table-invoice td, .table-invoice th {
@@ -83,7 +86,7 @@ input.form-control[type=number] {
 }
 
 #table-invoice-total-row {
-	border-top: 2px solid #939393;
+	border-top: 2px solid black;
 	background: white;
 }
 
@@ -93,9 +96,9 @@ input.form-control[type=number] {
 }
 
 
-#invoice-signature-text-row {
+/* #invoice-signature-text-row {
     border-top: : 2px solid;
-}
+} */
 
 #invoice-signature-row {
 	border-bottom: 2px solid;

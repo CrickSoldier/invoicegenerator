@@ -2,13 +2,31 @@
 
 
 {% block content %}
-<div style="max-width: 1200px; margin: auto;">
+<style>
+    @media print {
+        .table th.row-bg{
+            background-color: rgb(179, 179, 179) !important;
+            print-color-adjust: exact; 
+        }
+    }
+
+    /* @media print {
+        .table th {
+            background-color: red;
+            color: black !important;
+        }
+    } */
+</style>
+
+<div style="max-width: 1000px; margin: auto;">
+    <br>
+    <p style="text-align: right;"><b>Original For Recipient</b></p>
     <center>
         <h1><strong>Tax Invoice</strong></h1>
     </center>
     <hr style="border-top: 1px solid black;">
 
-    <table>
+    <table style="border-spacing: 20px 0;" >
         <tr>
             <td>
                 <b>Name and Address of Supplier</b>
@@ -18,7 +36,7 @@
         </tr>
         <tr>
             <td>
-                {{user_profile.business_title}}
+                <b>{{user_profile.business_title}}</b>
             </td>
             <td>
                 <b>GST Invoice No : {{invoice.invoice_number}}</b>
@@ -26,7 +44,7 @@
         </tr>
         <tr>
             <td>
-                {{user_profile.business_address}}
+                <b>{{user_profile.business_address}}</b>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
             </td>
             <td>
                 <b>GST Invoice Date : {{invoice.invoice_date}}</b>
@@ -41,7 +59,7 @@
         </tr>
         <tr>
             <td>
-                GSTIN :{{user_profile.business_gst}}
+                <b>GSTIN :{{user_profile.business_gst}}</b>
             </td>
             <td>
                 <strong>Place of Supply</strong>
@@ -52,7 +70,7 @@
                 <br>
             </td>
             <td>
-                WEST BOKARO,Jharkhand
+                <b>WEST BOKARO,Jharkhand</b>
             </td>
         </tr>
         <tr>
@@ -70,14 +88,14 @@
         </tr>
         <tr>
             <td>
-                {{ invoice_data.customer_name }}
+                <b>{{ invoice_data.customer_name }}</b>
             </td>
             <td>
             </td>
         </tr>
         <tr>
             <td>
-                {{ invoice_data.customer_address }}
+                <b>{{ invoice_data.customer_address }}</b>
             </td>
             <td>
                 <b>Receipt Voucher No</b>
@@ -85,10 +103,10 @@
         </tr>
         <tr>
             <td>
-                GSTIN No : {{ invoice_data.customer_gst }}
+                <b>GSTIN No : {{ invoice_data.customer_gst }}</b>
             </td>
             <td>
-                (For advance payment only)
+                <b>(For advance payment only)</b>
             </td>
         </tr>
         <tr>
@@ -98,48 +116,48 @@
         <!-- <tr><td></td></tr> -->
         <tr>
             <td>
-                <b>ARC No : </b>{{ invoice_data.arc_number }}
+                <b>ARC No : {{ invoice_data.arc_number }} </b>
             </td>
             <td>
-                <b>Item No : </b> {{ invoice_data.item_number }}
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>Challan No : </b>{{ invoice_data.challan_number }}
-            </td>
-            <td>
-                <b>Order Number : </b> {{invoice_data.order_number}}
+                <b>Item No :  {{ invoice_data.item_number }} </b>
             </td>
         </tr>
         <tr>
             <td>
-                <b>Item Description : </b>{{ invoice_data.item_description }}
+                <b>Challan No : {{ invoice_data.challan_number }} </b>
             </td>
             <td>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <b>Service From : </b>{{ invoice_data.service_from }}
-            </td>
-            <td>
-                <b>Service To : </b>{{ invoice_data.service_to }}
+                <b>Order Number :  {{invoice_data.order_number}} </b>
             </td>
         </tr>
         <tr>
             <td>
-                <b>Department : </b>{{ invoice_data.department }}
+                <b>Item Description : {{ invoice_data.item_description }} </b>
             </td>
             <td>
             </td>
         </tr>
         <tr>
             <td>
-                <b>Conf No : </b>{{ invoice_data.conf_number }}
+                <b>Service From : {{ invoice_data.service_from }} </b>
             </td>
             <td>
-                <b>SES No : </b>{{ invoice_data.ses_number }}
+                <b>Service To : {{ invoice_data.service_to }} </b>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Department : {{ invoice_data.department }} </b>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>Conf No : {{ invoice_data.conf_number }} </b>
+            </td>
+            <td>
+                <b>SES No : {{ invoice_data.ses_number }} </b>
             </td>
         </tr>
     </table>
@@ -147,17 +165,17 @@
     <br>
     
     <div class="table-responsive-sm">
-        <table class="table table-invoice" border="2px">
+        <table class="table table-invoice" border="2px" style="border-color: black;">
             <thead>
-                <tr style="background-color: gray; color: black;">
+                <tr style="border-color: black; background-color: rgb(171, 170, 170);">
                     <!-- <th class="text-center">#</th> -->
-                    <th class="text-left">Item No</th>
-                    <th class="text-center">SAC</th>
-                    <th class="text-center">Service No</th>
-                    <th class="text-center">Service Description</th>
-                    <th class="text-right">Quantity</th>
-                    <th class="text-center">UOM</th>
-                    <th class="text-right">Rate ({{ currency }})</th>
+                    <th class="text-left row-bg">Item No</th>
+                    <th class="text-center row-bg">SAC</th>
+                    <th class="text-center row-bg">Service No</th>
+                    <th class="text-center row-bg">Service Description</th>
+                    <th class="text-right row-bg">Quantity</th>
+                    <th class="text-center row-bg">UOM</th>
+                    <th class="text-right row-bg">Rate ({{ currency }})</th>
                     <!-- <th class="text-right">Taxable Amount ({{ currency }})</th>
                     <th class="text-right">GST (%)</th>
                     {% if invoice_data.igstcheck %}
@@ -166,21 +184,21 @@
                         <th class="text-right">CGST ({{ currency }})</th>
                         <th class="text-right">SGST ({{ currency }})</th>
                     {% endif %} -->
-                    <th class="text-right">Total Amount ({{ currency }})</th>
+                    <th class="text-right row-bg">Total Amount ({{ currency }})</th>
 
                 </tr>
             </thead>
             <tbody>
                 {% for item in invoice_data.items %}
-                <tr>
+                <tr style=" border-color: black; ">
                     <!-- <td class="text-center">{{ forloop.counter }}</td> -->
-                    <td class="text-left strong">{{ item.invoice_item }}</td>
-                    <td class="text-center">{{ item.invoice_sac }}</td>
-                    <td class="text-center">{{ item.invoice_service_number }}</td>
-                    <td class="text-center">{{ item.invoice_description }}</td>
-                    <td class="text-right">{{ item.invoice_qty }}</td>
-                    <td class="text-center">{{ item.invoice_unit }}</td>
-                    <td class="text-right">{{ item.invoice_rate_without_gst|floatformat:2 }}</td>
+                    <td class="text-left strong"><b>{{ item.invoice_item }}</b></td>
+                    <td class="text-center"><b>{{ item.invoice_sac }}</b></td>
+                    <td class="text-center"><b>{{ item.invoice_service_number }}</b></td>
+                    <td class="text-center"><b>{{ item.invoice_description }}</b></td>
+                    <td class="text-right"><b>{{ item.invoice_qty }}</b></td>
+                    <td class="text-center"><b>{{ item.invoice_unit }}</b></td>
+                    <td class="text-right"><b>{{ item.invoice_rate_without_gst|floatformat:2 }}</b></td>
                     <!-- <td class="text-right">{{ item.invoice_amt_without_gst|floatformat:2 }}</td>
                     <td class="text-right">{{ item.invoice_gst_percentage }}</td>
                     {% if invoice_data.igstcheck %}
@@ -189,18 +207,20 @@
                         <td class="text-right">{{ item.invoice_amt_cgst|floatformat:2 }}</td>
                         <td class="text-right">{{ item.invoice_amt_sgst|floatformat:2 }}</td>
                     {% endif %} -->
-                    <td class="text-right">{{ item.invoice_amt_with_gst|floatformat:2 }}</td>
+                    <td class="text-right"><b>{{ item.invoice_amt_with_gst|floatformat:2 }}</b></td>
                 </tr>
                 {% endfor %}
 
                 <tr id="table-invoice-total-row">
                     {% if invoice_data.igstcheck %}
-                        <td class="text-right" colspan="7"><b>Grand Total: </b></td>
+                        <td colspan="5" ></td>
+                        <td class="text-right" colspan="2"><b>Grand Total: </b></td>
                         <!-- <td class="text-right">{{ currency }} {{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}</td> -->
                         <!-- <td class="text-right"></td> -->
                         <!-- <td class="text-right">{{ currency }} {{invoice_data.invoice_total_amt_igst|floatformat:2 }}</td> -->
                     {% else %}
-                        <td class="text-right" colspan="7"><b>Grand Total: </b></td>
+                        <td colspan="5" ></td>
+                        <td class="text-right" colspan="2" ><b>Grand Total: </b></td>
                         <!-- <td class="text-right">{{ currency }} {{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}</td> -->
                         <!-- <td class="text-right"></td> -->
                         <!-- <td class="text-right">{{ currency }} {{invoice_data.invoice_total_amt_cgst|floatformat:2 }}</td>
@@ -238,7 +258,7 @@
                     <b>Total Invoice Value (in words)</b>
                 </div>
                 <div style="color: gray;">
-                   <b>{{ total_in_words }} </b> 
+                   <b>{{ total_in_words }} only</b> 
                 </div>
                 <div>
                     &nbsp;
@@ -260,57 +280,57 @@
             <div class="col-sm-6 col-md-6 col-lg-6 col-6">
                 
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Surcharge/ Discount</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>0</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>Surcharge/ Discount</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>0</b></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Taxable Value</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>Taxable Value</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>{{ invoice_data.invoice_total_amt_without_gst|floatformat:2 }}</b></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>CGST</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 9%</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>CGST</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR &nbsp; &nbsp; 9%</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>{{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}</b></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>SGST/UTGST</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 9%</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_sgst|floatformat:2 }}</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>SGST/UTGST</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR &nbsp; &nbsp; 9%</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>{{ invoice_data.invoice_total_amt_sgst|floatformat:2 }}</b></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>IGST</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 0%</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{ invoice_data.invoice_total_amt_igst|floatformat:2 }}</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>IGST</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR &nbsp; &nbsp; 0%</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>{{ invoice_data.invoice_total_amt_igst|floatformat:2 }}</b></div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Total Amount payable</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>&nbsp;</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>{{invoice_data.invoice_total_amt_with_gst|floatformat:2 }}</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>Total Amount payable</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>&nbsp;</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>{{invoice_data.invoice_total_amt_with_gst|floatformat:2 }}</b></div>
                 </div>
                 <div>
                     &nbsp;
                 </div>
 
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>Tax Subject to Reverse Charge</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>Tax Subject to Reverse Charge</b></div>
                     <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; 9%</b></div>
                     <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}</b></div> -->
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>CGST</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; %</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>CGST</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR &nbsp; &nbsp; %</b></div>
                     <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_cgst|floatformat:2 }}</b></div> -->
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>SGST/UTGST</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; %</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>SGST/UTGST</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR &nbsp; &nbsp; %</b></div>
                     <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_sgst|floatformat:2 }}</b></div> -->
                 </div>
                 <div class="row">
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>IGST</b></div>
-                    <div class="col-sm-4 col-md-4 col-lg-4 col-4"><b>INR &nbsp; &nbsp; %</b></div>
+                    <div class="col-sm-6 col-md-6 col-lg-6 col-6"><b>IGST</b></div>
+                    <div class="col-sm-3 col-md-3 col-lg-3 col-3"><b>INR &nbsp; &nbsp; %</b></div>
                     <!-- <div class="col-sm-4 col-md-4 col-lg-4 col-4 text-right"><b>{{ invoice_data.invoice_total_amt_igst|floatformat:2 }}</b></div> -->
                 </div>
 
@@ -322,7 +342,7 @@
 
         <table class="table table-invoice" border="2px">
             <thead>
-                <tr style="color: black;">
+                <tr style=" border-color: solid black 2px !important; ">
                     <!-- <th class="text-center">#</th> -->
                     <th class="text-left" colspan="3"><center>For Recipient Use Only</center></th>
 
@@ -330,10 +350,10 @@
             </thead>
             <tbody>
                 <tr>
-                    <!-- <td class="text-center">{{ forloop.counter }}</td> -->
-                    <td class="text-left ">Received By (Name/ P. No.)</td>
+                    <!-- <td class="text-center">{{ forloop.counter }}</td> style=" border-color: black;  -->
+                    <td class="text-left "><b>Received By (Name/ P. No.)</b></td>
                     <td class="text-center">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
-                    <td class="text-left">Signature and Date</td>
+                    <td class="text-left"><b>Signature and Date</b></td>
                 </tr>
             </tbody>
         </table>
@@ -348,8 +368,8 @@
                     </div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4 col-4">
-                    <div>:</div>
-                    <div>:<b>{{ invoice_data.tsl_number }}</b></div>
+                    <div><b>:</b></div>
+                    <div><b>:</b><b>{{ invoice_data.tsl_number }}</b></div>
                 </div>
                 <div class="col-sm-4 col-md-4 col-lg-4 col-4">
                     <div>

@@ -5,7 +5,7 @@
 <!doctype html>
 
 {% block title %}
-DjangoGst - Simplest GST invoicing | Inventory Management | Book keeping
+Kiran Constructions - | Billing Management System | Invoice Keeping
 {% endblock %}
 
 {% block metatags %}
@@ -14,45 +14,45 @@ DjangoGst - Simplest GST invoicing | Inventory Management | Book keeping
 <link rel="canonical" href="https://billgst.in/" />
 
 <meta property="og:title" content="BillGST - Simplest GST invoicing | Inventory Management | Book keeping" />
-<meta property="og:url" content="https://billgst.in" />
-<meta property="og:image" content="https://billgst.in{% static "gstbillingapp/images/screenshot_interface.png" %}" />
+<meta property="og:url" content="" />
+<meta property="og:image" content="" />
 {% endblock %}
 
 {% block content %}
 
 <div class="jumbotron">
-	<h1 class="display-3">DjangoGST</h1>
-	<h2 class="display-6">Simplest <b>GST invoicing</b> app.</h2>
+	<h1 class="display-3">Kiran Constructions</h1>
+	<h2 class="display-6"><b>Billing Management System.</b></h2>
 	<hr class="my-4">
 	<h4>
 	<ul>
-		 <li>Easily create invoices</li>
-		 <li>Manage inventory</li>
-		 <li>Keep books and track balances</li>
+		 <li>Easily create bills</li>
+		 <li>Add multiple products</li>
+		 <li>Customized GST percentage</li>
 	</ul>
 	</h4>
 	<p class="lead">
-		<a class="btn btn-primary btn-lg" href="{% url 'invoice_create' %}" role="button">Create Invoice</a>
+		<a class="btn btn-danger btn-lg" href="{% url 'invoice_create' %}" role="button">Create Invoice</a>
 	</p>
 </div>
 
 <div class="row">
 	<div class="col d-flex align-items-stretch">
-		<div class="card text-white bg-primary mb-3">
+		<div class="card text-white bg-danger mb-3">
 			<div class="card-body">
 			<h4 class="card-title">Simple Interface</h4>
 			<img class="img-fluid" src="{% static "gstbillingapp/images/screenshot_interface.png" %}" alt="Simple Interface">
 			</div>
 		</div>
 	</div>
-	<div class="col d-flex align-items-stretch">
+	<!-- <div class="col d-flex align-items-stretch">
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-body">
 			<h4 class="card-title">Customer and Product Search</h4>
 			<img class="img-fluid" src="{% static "gstbillingapp/images/screenshot_search.png" %}" alt="Customer and Product Search">
 			</div>
 		</div>
-	</div>
+	</div> -->
 <!-- 	<div class="col d-flex align-items-stretch">
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-body">
@@ -70,23 +70,23 @@ DjangoGst - Simplest GST invoicing | Inventory Management | Book keeping
 		</div>
 	</div>
  -->
- 	<div class="col d-flex align-items-stretch">
+ 	<!-- <div class="col d-flex align-items-stretch">
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-body">
 			<h4 class="card-title">Manage Books and Balances</h4>
 			<img class="img-fluid" src="{% static "gstbillingapp/images/screenshot_books.png" %}" alt="Manage books and balances">
 			</div>
 		</div>
-	</div>
+	</div> -->
 
-	 <div class="col d-flex align-items-stretch">
+	 <!-- <div class="col d-flex align-items-stretch">
 		<div class="card text-white bg-primary mb-3">
 			<div class="card-body">
 			<h4 class="card-title">Easy Inventory Management</h4>
 			<img class="img-fluid" src="{% static "gstbillingapp/images/screenshot_inventory.png" %}" alt="Manage inventory easily">
 			</div>
 		</div>
-	</div>
+	</div> -->
 </div>
 
 
