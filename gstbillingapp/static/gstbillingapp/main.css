@@ -30,11 +30,15 @@ input.form-control[type=number] {
 
 .table-bordered td, .table-bordered th {
 	padding: 0.25em;
+	border-color: solid black 2px;
 }
 
 .table-bordered tbody td, .table-bordered tbody th, .table-bordered thead th, .table-bordered thead td {
-	background: #f9f9f9;
+	background: black;
+	vertical-align: bottom;
 }
+
+
 
 .two-col-form td, .two-col-form th { 
 	width: 25%;
@@ -77,8 +81,10 @@ input.form-control[type=number] {
    border: none;
    
 }
+
+
 .table-invoice td, .table-invoice th {
-	border: solid black 2px;
+	border: solid black 1px;
 }
 
 .table-invoice td, .table-invoice th {
@@ -86,7 +92,8 @@ input.form-control[type=number] {
 }
 
 #table-invoice-total-row {
-	border-top: 2px solid black;
+	border-top: 1px solid black;
+	
 	background: white;
 }
 
@@ -101,7 +108,7 @@ input.form-control[type=number] {
 } */
 
 #invoice-signature-row {
-	border-bottom: 2px solid;
+	border-bottom: 1px solid;
 	height: 4em;
 }
 

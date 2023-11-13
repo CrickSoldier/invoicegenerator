@@ -49,6 +49,12 @@ def invoice_data_validator(invoice_data):
         return "Error: Incorrect Customer GST"
     return None
 
+def convert(date_time):
+    format = '%Y-%m-%d'
+    datetime_str = datetime.datetime.strptime(date_time, format)
+    datetime_str = datetime_str.strftime('%d-%m-%Y')
+    return datetime_str
+
 
 def invoice_data_processor(invoice_post_data):
     print(invoice_post_data)
@@ -67,8 +73,8 @@ def invoice_data_processor(invoice_post_data):
     processed_invoice_data['challan_number'] = invoice_post_data['challan-number']
     processed_invoice_data['tsl_number'] = invoice_post_data['tsl-number']
     processed_invoice_data['item_description'] = invoice_post_data['item-description']
-    processed_invoice_data['service_from'] = invoice_post_data['service-from']
-    processed_invoice_data['service_to'] = invoice_post_data['service-to']
+    processed_invoice_data['service_from'] = convert(invoice_post_data['service-from'])
+    processed_invoice_data['service_to'] = convert(invoice_post_data['service-to'])
     processed_invoice_data['department'] = invoice_post_data['department']
     processed_invoice_data['conf_number'] = invoice_post_data['conf-number']    
     processed_invoice_data['ses_number'] = invoice_post_data['ses-number']    

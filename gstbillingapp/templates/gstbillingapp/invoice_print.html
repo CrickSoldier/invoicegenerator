@@ -7,7 +7,10 @@
         .table th.row-bg{
             background-color: rgb(179, 179, 179) !important;
             print-color-adjust: exact; 
+            border-color: solid black 1px !important;
         }
+
+        
     }
 
     /* @media print {
@@ -139,7 +142,7 @@
         </tr>
         <tr>
             <td>
-                <b>Service From : {{ invoice_data.service_from }} </b>
+                <b>Service From : {{ invoice_data.service_from}} </b>
             </td>
             <td>
                 <b>Service To : {{ invoice_data.service_to }} </b>
@@ -165,7 +168,7 @@
     <br>
     
     <div class="table-responsive-sm">
-        <table class="table table-invoice" border="2px" style="border-color: black;">
+        <table class= table-invoice" border="1px" style="width:100%;height:100%; border-color: black;">
             <thead>
                 <tr style="border-color: black; background-color: rgb(171, 170, 170);">
                     <!-- <th class="text-center">#</th> -->
@@ -340,9 +343,9 @@
 
         </div>
 
-        <table class="table table-invoice" border="2px">
+        <table class="table-invoice"  border="1px" style="width:100%;height:100%;">
             <thead>
-                <tr style=" border-color: solid black 2px !important; ">
+                <tr >
                     <!-- <th class="text-center">#</th> -->
                     <th class="text-left" colspan="3"><center>For Recipient Use Only</center></th>
 
