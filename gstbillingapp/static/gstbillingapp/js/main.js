@@ -76,7 +76,7 @@ function initialize_auto_calculation(){
 
 function update_amounts(element){
     var product = element.parent().parent().find('input[name=invoice-description]').val();
-    var qty = parseInt(element.parent().parent().find('input[name=invoice-qty]').val());
+    var qty = parseFloat(element.parent().parent().find('input[name=invoice-qty]').val());
     var rate_with_gst = parseFloat(element.parent().parent().find('input[name=invoice-rate-with-gst]').val());
     var gst_percentage = parseFloat(element.parent().parent().find('input[name=invoice-gst-percentage]').val());
 

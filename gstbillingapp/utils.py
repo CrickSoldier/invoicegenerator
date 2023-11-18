@@ -106,7 +106,7 @@ def invoice_data_processor(invoice_post_data):
             item_entry['invoice_service_number'] = invoice_post_data['invoice-service-number'][idx]
             item_entry['invoice_description'] = invoice_post_data['invoice-description'][idx]
             item_entry['invoice_unit'] = invoice_post_data['invoice-unit'][idx]
-            item_entry['invoice_qty'] = int(invoice_post_data['invoice-qty'][idx])
+            item_entry['invoice_qty'] = float(invoice_post_data['invoice-qty'][idx])
             item_entry['invoice_rate_with_gst'] = float(invoice_post_data['invoice-rate-with-gst'][idx])
             item_entry['invoice_gst_percentage'] = float(invoice_post_data['invoice-gst-percentage'][idx])
 
